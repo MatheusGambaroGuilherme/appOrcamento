@@ -50,5 +50,15 @@ namespace Orcamento_RRG.control
         {
             return OrcamentoDAO.consultarItensAnteriores(numero);
         }
+
+        public void atualizarOrcamento(Orcamento orcamento)
+        {
+            OrcamentoDAO.alterarOrcamento(orcamento);
+        }
+
+        public void excluirItens(string numero)
+        {
+            OrcamentoDAO.excluirItens(numero);
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Orcamento_RRG.view
                     double valor = dt.Rows[i].Field<double>("valor");
                     string numero = dt.Rows[i].Field<string>("numero");
 
-                    Orcamento orcamento = new Orcamento(cliente, data, numero, valor);
+                    Orcamento orcamento = new Orcamento(cliente, data, numero, valor, id);
                     listaOrcamentos.Add(orcamento);
                     this.dgvOrcamentos.Rows.Add(numero, cliente, data);
                     i++;
@@ -59,9 +59,11 @@ namespace Orcamento_RRG.view
             string numero = listaOrcamentos[linhaSelecionada].Numero;
             string data = listaOrcamentos[linhaSelecionada].Data;
             string cliente = listaOrcamentos[linhaSelecionada].Cliente;
+            int id = listaOrcamentos[linhaSelecionada].Id;
 
-            NovoOrcamento novoOrcamento = new NovoOrcamento(cliente, numero, data);
+            NovoOrcamento novoOrcamento = new NovoOrcamento(cliente, numero, data, id);
             novoOrcamento.Show();  
+            this.Close();
         }
     }
 }

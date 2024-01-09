@@ -30,7 +30,7 @@ namespace Orcamento_RRG.view
 
         ProdutoControl produtoControl = new ProdutoControl();
 
-        public NovoOrcamento(string cliente, string numero, string data)
+        public NovoOrcamento(string cliente, string numero, string data, int idOrcamento)
         {
             InitializeComponent();
             txtCliente.Text = cliente;
@@ -49,9 +49,13 @@ namespace Orcamento_RRG.view
 
             carregarItensAnteriores();
             atualizarPreco();
+            btnSalvar.Text = "Alterar";
+            atualizar = 1;
+            id = idOrcamento;
         }
-        
 
+        int id;
+        int atualizar = 0;
         List<Produto> listaCBox = new List<Produto>();
         List<Produto> listaProdutosCarrinho = new List<Produto>();
         int idProdutoSelecionado;
@@ -63,7 +67,7 @@ namespace Orcamento_RRG.view
             double totalCusto = 0;
             int i = 0;
             foreach (DataGridViewRow row in dgvProdutos.Rows){
-                totalVenda += (double)this.dgvProdutos.Rows[i].Cells[4].Value;
+                totalVenda += (double)this.dgvProdutos.Rows[i].Cells[2].Value * (int)this.dgvProdutos.Rows[i].Cells[3].Value;
                 totalCusto += (double) this.dgvProdutos.Rows[i].Cells[1].Value * (int)this.dgvProdutos.Rows[i].Cells[3].Value;
                 i++;
             }
@@ -75,7 +79,6 @@ namespace Orcamento_RRG.view
         {
             this.dgvProdutos.Rows.Add(nome, valorCompra, valorVenda, 1, valorVenda);
             Produto p = new Produto(nome, id, valorVenda, valorCompra, codigo);
-            MessageBox.Show(p.Numero.ToString());
             listaProdutosCarrinho.Add(p);
         }
 
@@ -150,20 +153,44 @@ namespace Orcamento_RRG.view
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
+            if(atualizar == 0)
             {
-                string cliente = txtCliente.Text;
-                string data = txtData.Text;
-                double valor = Double.Parse(lblValor.Text);
-                string numero = txtNumeroOrcamento.Text;
-                Orcamento orcamento = new Orcamento(cliente, data, numero, valor);
-                orcamentoControl.adicionarOrcamento(orcamento);
-                salvarProdutosTabela();
+                try
+                {
+                    string cliente = txtCliente.Text;
+                    string data = txtData.Text;
+                    double valor = Double.Parse(lblValor.Text);
+                    string numero = txtNumeroOrcamento.Text;
+                    Orcamento orcamento = new Orcamento(cliente, data, numero, valor);
+                    orcamentoControl.adicionarOrcamento(orcamento);
+                    salvarProdutosTabela();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Houve um erro ao salvar o orçamento. Tente novamente!");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Houve um erro ao salvar o orçamento. Tente novamente!");
+                try
+                {
+                    string cliente = txtCliente.Text;
+                    string data = txtData.Text;
+                    double valor = Double.Parse(lblValor.Text);
+                    string numero = txtNumeroOrcamento.Text;
+                    Orcamento orcamento = new Orcamento(cliente, data, numero, valor, id);
+                    orcamentoControl.atualizarOrcamento(orcamento);
+                    orcamentoControl.excluirItens(numero);
+                    salvarProdutosTabela();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Houve um erro ao salvar o orçamento. Tente novamente!");
+                }
             }
+            
             
         }
 
@@ -178,7 +205,6 @@ namespace Orcamento_RRG.view
                 foreach (DataGridViewRow row in dgvProdutos.Rows)
                 {
                     idProduto = listaProdutosCarrinho[i].Numero;
-                    MessageBox.Show(listaProdutosCarrinho[i].Numero.ToString());
                     quantidade = (int)this.dgvProdutos.Rows[i].Cells[3].Value;
                     orcamentoControl.adicionarItens(idProduto, numeroOrcamento, quantidade);
                     i++;
@@ -194,31 +220,26 @@ namespace Orcamento_RRG.view
         {
             try
             {
-                DataTable dt = new DataTable();
-                dt = orcamentoControl.consultarItensAnteriores(txtNumeroOrcamento.Text);
-                MessageBox.Show(dt.Rows[0].Field<string>("NumeroOrcamento"));
+                DataTable dt = OrcamentoDAO.consultarItensAnteriores(txtNumeroOrcamento.Text);
                 int i = 0;
                 foreach (DataRow dr in dt.Rows)
-                {
-                    MessageBox.Show("a");
+                {                    
                     int numero = (int) dt.Rows[i].Field<Int64>("IDProduto");
                     int quantidade = (int)dt.Rows[i].Field<Int64>("Quantidade");
 
                     DataTable dtProduto = new DataTable();
                     dtProduto = produtoControl.consultarPorNumero(numero);
-                    MessageBox.Show("a");
-                    MessageBox.Show(numero.ToString());
                     string nome = dtProduto.Rows[0].Field<string>("nome").ToString();
                     double valorVenda = (double)dtProduto.Rows[0].Field<double>("valorVenda");
                     double valorCompra = (double)dtProduto.Rows[0].Field<double>("valorCompra");
                     string codigo = dtProduto.Rows[0].Field<string>("codigo").ToString();
 
                     Produto p = new Produto(nome, numero, valorVenda, valorCompra, codigo);
-                    this.dgvProdutos.Rows.Add(nome, precoCompra, precoVenda, quantidade);
+                    listaProdutosCarrinho.Add(p);
+                    this.dgvProdutos.Rows.Add(nome, valorCompra, valorVenda, quantidade);
+                    alterarValorTabela(i);
                     i++;
                 }
-
-                MessageBox.Show(txtNumeroOrcamento.Text);
             }
             catch (Exception ex)
             {

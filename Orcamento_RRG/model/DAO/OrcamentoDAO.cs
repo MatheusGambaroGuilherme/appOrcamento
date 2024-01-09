@@ -56,7 +56,6 @@ namespace Orcamento_RRG.model.DAO
             {
                 throw ex;
             }
-
         }
 
         public static void adicionarItens(int idProduto, string numeroOrcamento, int quantidade)
@@ -80,17 +79,48 @@ namespace Orcamento_RRG.model.DAO
         public static DataTable consultarItensAnteriores(string numero)
         {
             DataTable dt = new DataTable(); // objeto que retorna oq pedi ao banco
-            SQLiteDataAdapter da = null; // objeto que cria a query no banco
+            SQLiteDataAdapter da; // objeto que cria a query no banco
 
             try
             {
                 var cmd = ConexaoBanco().CreateCommand();
-                cmd.CommandText = "Select * from orcamento_produto where NumeroOrcamento = '@id'"; // criação da query
-                //cmd.Parameters.AddWithValue("@id", numero);
+
+                cmd.CommandText = "Select * from orcamento_produto where NumeroOrcamento = '"+numero+"'"; // criação da query
                 da = new SQLiteDataAdapter(cmd.CommandText, ConexaoBanco()); // execução da query
                 da.Fill(dt);// preenchimento do dt com os elementos recebidos
                 con.Close();
                 return dt;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void alterarOrcamento(Orcamento orcamento)
+        {
+            try
+            {
+                var cmd = ConexaoBanco().CreateCommand();
+                cmd.CommandText = "Update orcamento set cliente = '"+ orcamento.Cliente + "', data = '"+ orcamento.Data + "', valor = "+ orcamento.Valor + ", numero = '"+ orcamento.Numero + "' where id = " + orcamento.Id;                
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Orçamento Atualizado com Sucesso!");
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static void excluirItens(string numeroOrcamento)
+        {
+            try
+            {
+                var cmd = ConexaoBanco().CreateCommand();
+                cmd.CommandText = "delete from orcamento_produto where NumeroOrcamento = '" + numeroOrcamento + "'";
+                cmd.ExecuteNonQuery();
+                con.Close();
             }
             catch (Exception ex)
             {

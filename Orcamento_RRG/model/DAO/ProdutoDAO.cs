@@ -172,8 +172,7 @@ namespace Orcamento_RRG.model.DAO
             try
             {
                 var cmd = ConexaoBanco().CreateCommand();
-                cmd.CommandText = "Select * from produto where numero = @id"; // criação da query
-                cmd.Parameters.AddWithValue("@id", numero);
+                cmd.CommandText = "Select * from produto where numero = " + numero; // criação da query
                 da = new SQLiteDataAdapter(cmd.CommandText, ConexaoBanco()); // execução da query
                 da.Fill(dt);// preenchimento do dt com os elementos recebidos
                 con.Close();
