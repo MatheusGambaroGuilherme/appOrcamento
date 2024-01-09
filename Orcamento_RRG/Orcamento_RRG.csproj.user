@@ -4,6 +4,9 @@
     <Compile Update="view\AlterarProduto.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="view\GerenciadorDeOrcamentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="view\Main.cs">
       <SubType>Form</SubType>
     </Compile>

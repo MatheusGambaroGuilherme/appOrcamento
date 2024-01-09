@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Orcamento_RRG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+886b3a74fa15d40b246e83b3a7c4a3900d61f4a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Orcamento_RRG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Orcamento_RRG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

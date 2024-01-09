@@ -163,5 +163,27 @@ namespace Orcamento_RRG.model.DAO
             }
             
         }
+
+        public static DataTable consultarPorNumero(int numero)
+        {
+            DataTable dt = new DataTable(); // objeto que retorna oq pedi ao banco
+            SQLiteDataAdapter da = null; // objeto que cria a query no banco
+
+            try
+            {
+                var cmd = ConexaoBanco().CreateCommand();
+                cmd.CommandText = "Select * from produto where numero = @id"; // criação da query
+                cmd.Parameters.AddWithValue("@id", numero);
+                da = new SQLiteDataAdapter(cmd.CommandText, ConexaoBanco()); // execução da query
+                da.Fill(dt);// preenchimento do dt com os elementos recebidos
+                con.Close();
+                return dt;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

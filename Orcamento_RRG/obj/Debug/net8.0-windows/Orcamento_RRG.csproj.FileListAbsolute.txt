@@ -36,3 +36,5 @@ C:\Users\mathe\Documents\Orcamento_RRG\Orcamento_RRG\obj\Debug\net8.0-windows\Or
 C:\Users\mathe\Documents\Orcamento_RRG\Orcamento_RRG\obj\Debug\net8.0-windows\Orcamento_RRG.csproj.CopyComplete
 C:\Users\mathe\Documents\Orcamento_RRG\Orcamento_RRG\obj\Debug\net8.0-windows\Orcamento_RRG.view.ProdutoWindow.resources
 C:\Users\mathe\Documents\Orcamento_RRG\Orcamento_RRG\obj\Debug\net8.0-windows\Orcamento_RRG.view.AlterarProduto.resources
+C:\Users\mathe\Documents\Orcamento_RRG\Orcamento_RRG\obj\Debug\net8.0-windows\Orcamento_RRG.sourcelink.json
+C:\Users\mathe\Documents\Orcamento_RRG\Orcamento_RRG\obj\Debug\net8.0-windows\Orcamento_RRG.view.GerenciadorDeOrcamentos.resources

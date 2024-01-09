@@ -44,5 +44,10 @@ namespace Orcamento_RRG.control
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        public DataTable consultarPorNumero(int numero)
+        {
+            return ProdutoDAO.consultarPorNumero(numero);
+        }
     }
 }

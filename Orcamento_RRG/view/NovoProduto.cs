@@ -55,6 +55,7 @@ namespace Orcamento_RRG.view
 
                 Produto produto = new Produto(nome, valorVenda, valorCompra, codigo);
                 pcontrol.cadastrarProduto(produto);
+                this.Close();
             }catch(Exception ex)
             {
                 MessageBox.Show("Houve um problema ao cadastrar o produto!");

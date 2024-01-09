@@ -33,5 +33,11 @@ namespace Orcamento_RRG.view
             ProdutoWindow form = new ProdutoWindow();
             form.Show();
         }
+
+        private void btnGerenciar_Click(object sender, EventArgs e)
+        {
+            GerenciadorDeOrcamentos form = new GerenciadorDeOrcamentos();
+            form.Show();
+        }
     }
 }

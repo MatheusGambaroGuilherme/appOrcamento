@@ -19,6 +19,10 @@ namespace Orcamento_RRG.view
         public AlterarProduto()
         {
             InitializeComponent();
+            foreach (DataGridViewColumn column in dgvProdutos.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
             cboxPesquisa.SelectedIndex = 0;
             listProduto.Clear();
             DataTable table = new DataTable();

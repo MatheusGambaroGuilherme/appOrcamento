@@ -84,6 +84,7 @@
             btnGerenciar.TabIndex = 2;
             btnGerenciar.Text = "Gerenciar Orçamentos";
             btnGerenciar.UseVisualStyleBackColor = true;
+            btnGerenciar.Click += btnGerenciar_Click;
             // 
             // Main
             // 
