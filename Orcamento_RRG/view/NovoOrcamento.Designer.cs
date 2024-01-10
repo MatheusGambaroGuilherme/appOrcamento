@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             label1 = new Label();
             txtCliente = new TextBox();
             label2 = new Label();
@@ -52,6 +52,7 @@
             btnAumentarProduto = new Button();
             btnDiminuirProduto = new Button();
             btnRemover = new Button();
+            btnExportar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).BeginInit();
             SuspendLayout();
             // 
@@ -173,14 +174,14 @@
             dgvProdutos.AllowUserToDeleteRows = false;
             dgvProdutos.AllowUserToResizeColumns = false;
             dgvProdutos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Control;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvProdutos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvProdutos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProdutos.Columns.AddRange(new DataGridViewColumn[] { nomeProduto, precoCompra, precoVenda, qntProduto, totalVendaProduto });
             dgvProdutos.EnableHeadersVisualStyles = false;
@@ -262,11 +263,21 @@
             btnRemover.UseVisualStyleBackColor = true;
             btnRemover.Click += btnRemover_Click;
             // 
+            // btnExportar
+            // 
+            btnExportar.Location = new Point(559, 143);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(215, 23);
+            btnExportar.TabIndex = 22;
+            btnExportar.Text = "Exportar Orçamento";
+            btnExportar.UseVisualStyleBackColor = true;
+            // 
             // NovoOrcamento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnExportar);
             Controls.Add(btnRemover);
             Controls.Add(btnDiminuirProduto);
             Controls.Add(btnAumentarProduto);
@@ -318,5 +329,6 @@
         private Button btnAumentarProduto;
         private Button btnDiminuirProduto;
         private Button btnRemover;
+        private Button btnExportar;
     }
 }

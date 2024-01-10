@@ -33,6 +33,7 @@
             numero = new DataGridViewTextBoxColumn();
             cliente = new DataGridViewTextBoxColumn();
             data = new DataGridViewTextBoxColumn();
+            btnExcluir = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvOrcamentos).BeginInit();
             SuspendLayout();
             // 
@@ -84,11 +85,22 @@
             data.ReadOnly = true;
             data.Width = 150;
             // 
+            // btnExcluir
+            // 
+            btnExcluir.Location = new Point(401, 304);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(134, 23);
+            btnExcluir.TabIndex = 19;
+            btnExcluir.Text = "Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
+            // 
             // GerenciadorDeOrcamentos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(551, 309);
+            ClientSize = new Size(547, 333);
+            Controls.Add(btnExcluir);
             Controls.Add(dgvOrcamentos);
             Name = "GerenciadorDeOrcamentos";
             StartPosition = FormStartPosition.CenterScreen;
@@ -103,5 +115,6 @@
         private DataGridViewTextBoxColumn numero;
         private DataGridViewTextBoxColumn cliente;
         private DataGridViewTextBoxColumn data;
+        private Button btnExcluir;
     }
 }

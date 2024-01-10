@@ -18,6 +18,10 @@ namespace Orcamento_RRG.view
         {
             InitializeComponent();
             carregarTabelaOrcamentos();
+            foreach (DataGridViewColumn column in dgvOrcamentos.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
 
@@ -26,6 +30,7 @@ namespace Orcamento_RRG.view
 
         public void carregarTabelaOrcamentos()
         {
+            dgvOrcamentos.Rows.Clear();
             try
             {
                 DataTable dt = new DataTable();
@@ -36,7 +41,7 @@ namespace Orcamento_RRG.view
                     int id = (int)dt.Rows[i].Field<Int64>("id");
                     string cliente = dt.Rows[i].Field<string>("cliente");
                     string data = dt.Rows[i].Field<string>("data");
-                    double valor = dt.Rows[i].Field<double>("valor");
+                    double valor = (double)dt.Rows[i].Field<Decimal>("valor");
                     string numero = dt.Rows[i].Field<string>("numero");
 
                     Orcamento orcamento = new Orcamento(cliente, data, numero, valor, id);
@@ -51,19 +56,47 @@ namespace Orcamento_RRG.view
                 MessageBox.Show(ex.ToString());
             }
 
+
+
         }
 
         private void dgvOrcamentos_DoubleClick(object sender, EventArgs e)
         {
-            int linhaSelecionada = dgvOrcamentos.CurrentRow.Index;
-            string numero = listaOrcamentos[linhaSelecionada].Numero;
-            string data = listaOrcamentos[linhaSelecionada].Data;
-            string cliente = listaOrcamentos[linhaSelecionada].Cliente;
-            int id = listaOrcamentos[linhaSelecionada].Id;
+            try
+            {
+                int linhaSelecionada = dgvOrcamentos.CurrentRow.Index;
+                string numero = listaOrcamentos[linhaSelecionada].Numero;
+                string data = listaOrcamentos[linhaSelecionada].Data;
+                string cliente = listaOrcamentos[linhaSelecionada].Cliente;
+                int id = listaOrcamentos[linhaSelecionada].Id;
 
-            NovoOrcamento novoOrcamento = new NovoOrcamento(cliente, numero, data, id);
-            novoOrcamento.Show();  
-            this.Close();
+                NovoOrcamento novoOrcamento = new NovoOrcamento(cliente, numero, data, id);
+                novoOrcamento.Show();
+                this.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Houve um erro ao acessar o orçamento!");
+            }
+
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int linhaSelecionada = dgvOrcamentos.CurrentRow.Index;
+                string numero = listaOrcamentos[linhaSelecionada].Numero;
+                string cliente = listaOrcamentos[linhaSelecionada].Cliente;
+                if (MessageBox.Show("Deseja Excluir o Orçamento " + numero + " de " + cliente + "?", "Excluir Orçamento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    orcamentoControl.excluirOrcamento(numero);
+                }
+                carregarTabelaOrcamentos();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Houve um erro ao excluir o orçamento!");
+            }
+
         }
     }
 }

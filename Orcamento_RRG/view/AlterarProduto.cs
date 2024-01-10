@@ -19,10 +19,6 @@ namespace Orcamento_RRG.view
         public AlterarProduto()
         {
             InitializeComponent();
-            foreach (DataGridViewColumn column in dgvProdutos.Columns)
-            {
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
             cboxPesquisa.SelectedIndex = 0;
             listProduto.Clear();
             DataTable table = new DataTable();
@@ -31,8 +27,8 @@ namespace Orcamento_RRG.view
             foreach (DataRow dr in table.Rows)
             {
                 String nome = table.Rows[i].Field<String>("nome").ToString();
-                double valorVenda = table.Rows[i].Field<Double>("valorVenda");
-                double valorCompra = table.Rows[i].Field<Double>("valorCompra");
+                double valorVenda = (double)table.Rows[i].Field<Decimal>("valorVenda");
+                double valorCompra = (double)table.Rows[i].Field<Decimal>("valorCompra");
                 String codigo = table.Rows[i].Field<String>("codigo").ToString();
                 int numero = (int)table.Rows[i].Field<Int64>("numero");
 
@@ -40,6 +36,10 @@ namespace Orcamento_RRG.view
                 listProduto.Add(produto);
 
                 i++;
+            }
+            foreach (DataGridViewColumn column in dgvProdutos.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
 
@@ -84,26 +84,27 @@ namespace Orcamento_RRG.view
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (dgvProdutos.CurrentRow.Index != null)
+            try
             {
-                int linhaSelecionada = dgvProdutos.CurrentRow.Index;
-
-                String nome = txtNome.Text;
-                double valorVenda = Double.Parse(txtValorVenda.Text);
-                double valorCompra = Double.Parse(txtValorCompra.Text);
-                String codigo = txtCodigo.Text;
-                int numero = produtoIdAtual;
-
-                Produto p = new Produto(nome, numero, valorVenda, valorCompra, codigo);
-                try
+                if (dgvProdutos.CurrentRow.Index != null)
                 {
+                    int linhaSelecionada = dgvProdutos.CurrentRow.Index;
+
+                    String nome = txtNome.Text;
+                    double valorVenda = Double.Parse(txtValorVenda.Text);
+                    double valorCompra = Double.Parse(txtValorCompra.Text);
+                    String codigo = txtCodigo.Text;
+                    int numero = produtoIdAtual;
+
+                    Produto p = new Produto(nome, numero, valorVenda, valorCompra, codigo);
                     pcontrol.alterarProduto(p);
                     reiniciarTabela();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Houve um erro ao salvar as alterações, verifique os dados novamente!");
             }
         }
 
@@ -119,8 +120,8 @@ namespace Orcamento_RRG.view
                 foreach (DataRow dr in table.Rows)
                 {
                     String nome = table.Rows[i].Field<String>("nome").ToString();
-                    double valorVenda = table.Rows[i].Field<Double>("valorVenda");
-                    double valorCompra = table.Rows[i].Field<Double>("valorCompra");
+                    double valorVenda = (double)table.Rows[i].Field<Decimal>("valorVenda");
+                    double valorCompra = (double)table.Rows[i].Field<Decimal>("valorCompra");
                     String codigo = table.Rows[i].Field<String>("codigo").ToString();
                     int numero = (int)table.Rows[i].Field<Int64>("numero");
 
@@ -140,8 +141,8 @@ namespace Orcamento_RRG.view
                 foreach (DataRow dr in table.Rows)
                 {
                     String nome = table.Rows[i].Field<String>("nome").ToString();
-                    double valorVenda = table.Rows[i].Field<Double>("valorVenda");
-                    double valorCompra = table.Rows[i].Field<Double>("valorCompra");
+                    double valorVenda = (double)table.Rows[i].Field<Decimal>("valorVenda");
+                    double valorCompra = (double)table.Rows[i].Field<Decimal>("valorCompra");
                     String codigo = table.Rows[i].Field<String>("codigo").ToString();
                     int numero = (int)table.Rows[i].Field<Int64>("numero");
 
@@ -161,8 +162,8 @@ namespace Orcamento_RRG.view
                 foreach (DataRow dr in table.Rows)
                 {
                     String nome = table.Rows[i].Field<String>("nome").ToString();
-                    double valorVenda = table.Rows[i].Field<Double>("valorVenda");
-                    double valorCompra = table.Rows[i].Field<Double>("valorCompra");
+                    double valorVenda = (double)table.Rows[i].Field<Decimal>("valorVenda");
+                    double valorCompra = (double)table.Rows[i].Field<Decimal>("valorCompra");
                     String codigo = table.Rows[i].Field<String>("codigo").ToString();
                     int numero = (int)table.Rows[i].Field<Int64>("numero");
 
@@ -181,8 +182,12 @@ namespace Orcamento_RRG.view
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            pcontrol.excluirProduto(produtoIdAtual);
-            reiniciarTabela();
+            if(MessageBox.Show("Deseja Excluir o Produto?", "Excluir Produto", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                pcontrol.excluirProduto(produtoIdAtual);
+                reiniciarTabela();
+            }
+            
         }
     }
 }

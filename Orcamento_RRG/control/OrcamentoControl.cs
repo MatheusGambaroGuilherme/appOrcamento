@@ -60,5 +60,10 @@ namespace Orcamento_RRG.control
         {
             OrcamentoDAO.excluirItens(numero);
         }
+
+        public void excluirOrcamento(string numero)
+        {
+            OrcamentoDAO.excluirOrcamento(numero);
+        }
     }
 }

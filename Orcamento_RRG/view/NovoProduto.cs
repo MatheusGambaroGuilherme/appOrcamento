@@ -18,6 +18,7 @@ namespace Orcamento_RRG.view
         public NovoProduto()
         {
             InitializeComponent();
+
         }
 
         public NovoProduto(String nome, String valorVenda, String valorCompra, String codigo)
@@ -40,8 +41,8 @@ namespace Orcamento_RRG.view
             try
             {
                 String nome = txtNome.Text;
-                Double valorVenda = Double.Parse(txtValorVenda.Text);
-                Double valorCompra = Double.Parse(txtValorCompra.Text);
+                Double valorVenda = (double)Decimal.Parse(txtValorVenda.Text);
+                Double valorCompra = (double)Decimal.Parse(txtValorCompra.Text);
                 String codigo;
                 if(txtCodigo.Text == null)
                 {

@@ -26,6 +26,7 @@ namespace Orcamento_RRG.view
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+            btnExportar.Enabled = false;
         }
 
         ProdutoControl produtoControl = new ProdutoControl();
@@ -94,8 +95,8 @@ namespace Orcamento_RRG.view
                 cboxProduto.Items.Add(dt.Rows[i].Field<string>("nome").ToString());
                 string nome = dt.Rows[i].Field<string>("nome").ToString();
                 int numero = (int)dt.Rows[i].Field<Int64>("numero");
-                double valorVenda = (double)dt.Rows[i].Field<double>("valorVenda");
-                double valorCompra = (double)dt.Rows[i].Field<double>("valorCompra");
+                double valorVenda = (double)dt.Rows[i].Field<Decimal>("valorVenda");
+                double valorCompra = (double)dt.Rows[i].Field<Decimal>("valorCompra");
                 string codigo = dt.Rows[i].Field<string>("codigo").ToString();
 
                 Produto p = new Produto(nome, numero, valorVenda, valorCompra, codigo);
@@ -122,32 +123,53 @@ namespace Orcamento_RRG.view
         
         private void btnAumentarProduto_Click(object sender, EventArgs e)
         {
-            int linhaSelecionada = dgvProdutos.CurrentRow.Index;
-            // Modify the value in the first cell of the second row.  
-            this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value = (int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value + 1;
-            alterarValorTabela(linhaSelecionada);
+            try
+            {
+                int linhaSelecionada = dgvProdutos.CurrentRow.Index;
+                // Modify the value in the first cell of the second row.  
+                this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value = (int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value + 1;
+                alterarValorTabela(linhaSelecionada);
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Erro ao aumentar produto");
+            }
+
             atualizarPreco();
         }
 
         private void btnDiminuirProduto_Click(object sender, EventArgs e)
         {
-            int linhaSelecionada = dgvProdutos.CurrentRow.Index;
-            // Modify the value in the first cell of the second row.  
-            this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value = (int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value - 1;
-            alterarValorTabela(linhaSelecionada);
-            if ((int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value <= 0)
+            try
             {
-                listaProdutosCarrinho.RemoveAt(linhaSelecionada);
-                dgvProdutos.Rows.RemoveAt(linhaSelecionada);
+                int linhaSelecionada = dgvProdutos.CurrentRow.Index;
+                // Modify the value in the first cell of the second row.  
+                this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value = (int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value - 1;
+                alterarValorTabela(linhaSelecionada);
+                if ((int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value <= 0)
+                {
+                    listaProdutosCarrinho.RemoveAt(linhaSelecionada);
+                    dgvProdutos.Rows.RemoveAt(linhaSelecionada);
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Erro ao diminuir produto");
             }
+            
             atualizarPreco();
         }
 
         private void btnRemover_Click(object sender, EventArgs e)
         {
-            int linhaSelecionada = dgvProdutos.CurrentRow.Index;
-            listaProdutosCarrinho.RemoveAt(linhaSelecionada);
-            dgvProdutos.Rows.RemoveAt(linhaSelecionada);
+            try
+            {
+                int linhaSelecionada = dgvProdutos.CurrentRow.Index;
+                listaProdutosCarrinho.RemoveAt(linhaSelecionada);
+                dgvProdutos.Rows.RemoveAt(linhaSelecionada);
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao excluir produto");
+            }
+
             atualizarPreco();
         }
 
@@ -161,10 +183,19 @@ namespace Orcamento_RRG.view
                     string data = txtData.Text;
                     double valor = Double.Parse(lblValor.Text);
                     string numero = txtNumeroOrcamento.Text;
-                    Orcamento orcamento = new Orcamento(cliente, data, numero, valor);
-                    orcamentoControl.adicionarOrcamento(orcamento);
-                    salvarProdutosTabela();
-                    this.Close();
+
+                    if(cliente == null ||  valor == 0 || numero == null || data == null || (dgvProdutos.Rows.Count > 0 && cliente == null || valor == 0 || numero == null || data == null))
+                    {
+                        MessageBox.Show("Por favor, insira todas as informações para salvar!");
+                    }
+                    else
+                    {
+                        Orcamento orcamento = new Orcamento(cliente, data, numero, valor);
+                        orcamentoControl.adicionarOrcamento(orcamento);
+                        salvarProdutosTabela();
+                        this.Close();
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -173,8 +204,8 @@ namespace Orcamento_RRG.view
             }
             else
             {
-                try
-                {
+               // try
+               // {
                     string cliente = txtCliente.Text;
                     string data = txtData.Text;
                     double valor = Double.Parse(lblValor.Text);
@@ -184,11 +215,11 @@ namespace Orcamento_RRG.view
                     orcamentoControl.excluirItens(numero);
                     salvarProdutosTabela();
                     this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Houve um erro ao salvar o orçamento. Tente novamente!");
-                }
+               // }
+               // catch (Exception ex)
+               // {
+                  //  MessageBox.Show("Houve um erro ao salvar o orçamento. Tente novamente!");
+               // }
             }
             
             
@@ -230,8 +261,8 @@ namespace Orcamento_RRG.view
                     DataTable dtProduto = new DataTable();
                     dtProduto = produtoControl.consultarPorNumero(numero);
                     string nome = dtProduto.Rows[0].Field<string>("nome").ToString();
-                    double valorVenda = (double)dtProduto.Rows[0].Field<double>("valorVenda");
-                    double valorCompra = (double)dtProduto.Rows[0].Field<double>("valorCompra");
+                    double valorVenda = (double)dtProduto.Rows[0].Field<Decimal>("valorVenda");
+                    double valorCompra = (double)dtProduto.Rows[0].Field<Decimal>("valorCompra");
                     string codigo = dtProduto.Rows[0].Field<string>("codigo").ToString();
 
                     Produto p = new Produto(nome, numero, valorVenda, valorCompra, codigo);

@@ -103,7 +103,9 @@ namespace Orcamento_RRG.model.DAO
             try
             {
                 var cmd = ConexaoBanco().CreateCommand();
-                cmd.CommandText = "Update orcamento set cliente = '"+ orcamento.Cliente + "', data = '"+ orcamento.Data + "', valor = "+ orcamento.Valor + ", numero = '"+ orcamento.Numero + "' where id = " + orcamento.Id;                
+                MessageBox.Show(orcamento.Cliente + " " + orcamento.Data + " " +orcamento.Valor.ToString() + " " + orcamento.Numero + " " + orcamento.Id.ToString());
+                cmd.CommandText = "Update orcamento set cliente = '"+ orcamento.Cliente + "', data = '"+ orcamento.Data + "', valor =  @valor , numero = '"+ orcamento.Numero + "' where id = " + orcamento.Id;
+                cmd.Parameters.AddWithValue("@valor", orcamento.Valor);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Orçamento Atualizado com Sucesso!");
                 con.Close();
@@ -119,6 +121,23 @@ namespace Orcamento_RRG.model.DAO
             {
                 var cmd = ConexaoBanco().CreateCommand();
                 cmd.CommandText = "delete from orcamento_produto where NumeroOrcamento = '" + numeroOrcamento + "'";
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void excluirOrcamento(string numero)
+        {
+            try
+            {
+                var cmd = ConexaoBanco().CreateCommand();
+                cmd.CommandText = "delete from orcamento_produto where NumeroOrcamento = '" + numero + "'";
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "delete from orcamento where numero = '" + numero + "'";
                 cmd.ExecuteNonQuery();
                 con.Close();
             }

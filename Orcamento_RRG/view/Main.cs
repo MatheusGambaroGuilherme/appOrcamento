@@ -30,7 +30,7 @@ namespace Orcamento_RRG.view
 
         private void btnProdutos_Click(object sender, EventArgs e)
         {
-            ProdutoWindow form = new ProdutoWindow();
+            NovoProduto form = new NovoProduto();
             form.Show();
         }
 
@@ -38,6 +38,17 @@ namespace Orcamento_RRG.view
         {
             GerenciadorDeOrcamentos form = new GerenciadorDeOrcamentos();
             form.Show();
+        }
+
+        private void btnOrcamentos_Click(object sender, EventArgs e)
+        {
+            AlterarProduto form = new AlterarProduto();
+            form.Show();
+        }
+
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

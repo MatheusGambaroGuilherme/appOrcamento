@@ -32,6 +32,10 @@
             opçõesToolStripMenuItem = new ToolStripMenuItem();
             btnProdutos = new ToolStripMenuItem();
             btnOrcamentos = new ToolStripMenuItem();
+            opçõesToolStripMenuItem1 = new ToolStripMenuItem();
+            exportarOrçamentosToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            sairToolStripMenuItem = new ToolStripMenuItem();
             btnNovo = new Button();
             btnGerenciar = new Button();
             menuStrip1.SuspendLayout();
@@ -39,10 +43,10 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { opçõesToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { opçõesToolStripMenuItem, opçõesToolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.Size = new Size(572, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip";
             // 
@@ -50,25 +54,51 @@
             // 
             opçõesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnProdutos, btnOrcamentos });
             opçõesToolStripMenuItem.Name = "opçõesToolStripMenuItem";
-            opçõesToolStripMenuItem.Size = new Size(59, 20);
-            opçõesToolStripMenuItem.Text = "Opções";
+            opçõesToolStripMenuItem.Size = new Size(67, 20);
+            opçõesToolStripMenuItem.Text = "Produtos";
             // 
             // btnProdutos
             // 
             btnProdutos.Name = "btnProdutos";
-            btnProdutos.Size = new Size(139, 22);
-            btnProdutos.Text = "Produtos";
+            btnProdutos.Size = new Size(175, 22);
+            btnProdutos.Text = "Novo Produto";
             btnProdutos.Click += btnProdutos_Click;
             // 
             // btnOrcamentos
             // 
             btnOrcamentos.Name = "btnOrcamentos";
-            btnOrcamentos.Size = new Size(139, 22);
-            btnOrcamentos.Text = "Orçamentos";
+            btnOrcamentos.Size = new Size(175, 22);
+            btnOrcamentos.Text = "Gerenciar Produtos";
+            btnOrcamentos.Click += btnOrcamentos_Click;
+            // 
+            // opçõesToolStripMenuItem1
+            // 
+            opçõesToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { exportarOrçamentosToolStripMenuItem, toolStripMenuItem1, sairToolStripMenuItem });
+            opçõesToolStripMenuItem1.Name = "opçõesToolStripMenuItem1";
+            opçõesToolStripMenuItem1.Size = new Size(59, 20);
+            opçõesToolStripMenuItem1.Text = "Opções";
+            // 
+            // exportarOrçamentosToolStripMenuItem
+            // 
+            exportarOrçamentosToolStripMenuItem.Name = "exportarOrçamentosToolStripMenuItem";
+            exportarOrçamentosToolStripMenuItem.Size = new Size(186, 22);
+            exportarOrçamentosToolStripMenuItem.Text = "Exportar Orçamentos";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(183, 6);
+            // 
+            // sairToolStripMenuItem
+            // 
+            sairToolStripMenuItem.Name = "sairToolStripMenuItem";
+            sairToolStripMenuItem.Size = new Size(186, 22);
+            sairToolStripMenuItem.Text = "Sair";
+            sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
             // 
             // btnNovo
             // 
-            btnNovo.Location = new Point(189, 122);
+            btnNovo.Location = new Point(90, 122);
             btnNovo.Name = "btnNovo";
             btnNovo.Size = new Size(135, 111);
             btnNovo.TabIndex = 1;
@@ -78,7 +108,7 @@
             // 
             // btnGerenciar
             // 
-            btnGerenciar.Location = new Point(464, 122);
+            btnGerenciar.Location = new Point(332, 122);
             btnGerenciar.Name = "btnGerenciar";
             btnGerenciar.Size = new Size(135, 111);
             btnGerenciar.TabIndex = 2;
@@ -90,7 +120,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(572, 329);
             Controls.Add(btnGerenciar);
             Controls.Add(btnNovo);
             Controls.Add(menuStrip1);
@@ -113,5 +143,9 @@
         private ToolStripMenuItem btnOrcamentos;
         private Button btnNovo;
         private Button btnGerenciar;
+        private ToolStripMenuItem opçõesToolStripMenuItem1;
+        private ToolStripMenuItem exportarOrçamentosToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem sairToolStripMenuItem;
     }
 }
