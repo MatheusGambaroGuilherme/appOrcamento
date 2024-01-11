@@ -271,6 +271,7 @@
             btnExportar.TabIndex = 22;
             btnExportar.Text = "Exportar Orçamento";
             btnExportar.UseVisualStyleBackColor = true;
+            btnExportar.Click += btnExportar_Click;
             // 
             // NovoOrcamento
             // 

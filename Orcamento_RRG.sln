@@ -3,23 +3,33 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orcamento_RRG", "Orcamento_RRG\Orcamento_RRG.csproj", "{CDDB747F-78BF-409E-919C-431E224B7DAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orcamento_RRG", "Orcamento_RRG\Orcamento_RRG.csproj", "{CDDB747F-78BF-409E-919C-431E224B7DAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Default = Debug|Default
 		Release|Any CPU = Release|Any CPU
+		Release|Default = Release|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Debug|Default.ActiveCfg = Debug|Any CPU
+		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Debug|Default.Build.0 = Debug|Any CPU
 		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Release|Default.ActiveCfg = Release|Any CPU
+		{CDDB747F-78BF-409E-919C-431E224B7DAF}.Release|Default.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63F7BCC0-5734-45E3-80F7-14142B6C1C19}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 EndGlobal

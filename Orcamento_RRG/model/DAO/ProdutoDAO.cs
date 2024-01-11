@@ -14,7 +14,9 @@ namespace Orcamento_RRG.model.DAO
 
         private static SQLiteConnection ConexaoBanco()
         {
-            con = new SQLiteConnection("Data Source = C:\\Users\\mathe\\Documents\\Orcamento_RRG\\Orcamento_RRG\\data_base\\db_rrg");
+            string caminhoBanco = System.AppDomain.CurrentDomain.BaseDirectory.ToString();
+            string dbPath = caminhoBanco + @"data_base\db_rrg";
+            con = new SQLiteConnection($"Data Source={dbPath}");
             con.Open();
             return con;
         }

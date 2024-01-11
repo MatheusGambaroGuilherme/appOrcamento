@@ -75,7 +75,7 @@ namespace Orcamento_RRG.view
                 this.Close();
             }catch(Exception ex)
             {
-                MessageBox.Show("Houve um erro ao acessar o orçamento!");
+                MessageBox.Show(ex.Message);
             }
 
         }

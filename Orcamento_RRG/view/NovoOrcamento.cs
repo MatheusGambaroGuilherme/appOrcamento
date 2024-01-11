@@ -67,9 +67,10 @@ namespace Orcamento_RRG.view
             double totalVenda = 0;
             double totalCusto = 0;
             int i = 0;
-            foreach (DataGridViewRow row in dgvProdutos.Rows){
+            foreach (DataGridViewRow row in dgvProdutos.Rows)
+            {
                 totalVenda += (double)this.dgvProdutos.Rows[i].Cells[2].Value * (int)this.dgvProdutos.Rows[i].Cells[3].Value;
-                totalCusto += (double) this.dgvProdutos.Rows[i].Cells[1].Value * (int)this.dgvProdutos.Rows[i].Cells[3].Value;
+                totalCusto += (double)this.dgvProdutos.Rows[i].Cells[1].Value * (int)this.dgvProdutos.Rows[i].Cells[3].Value;
                 i++;
             }
             lblValor.Text = totalVenda.ToString();
@@ -120,7 +121,7 @@ namespace Orcamento_RRG.view
             this.dgvProdutos.Rows[linhaSelecionada].Cells[4].Value = (int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value * listaProdutosCarrinho[linhaSelecionada].ValorVenda;
         }
 
-        
+
         private void btnAumentarProduto_Click(object sender, EventArgs e)
         {
             try
@@ -129,7 +130,8 @@ namespace Orcamento_RRG.view
                 // Modify the value in the first cell of the second row.  
                 this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value = (int)this.dgvProdutos.Rows[linhaSelecionada].Cells[3].Value + 1;
                 alterarValorTabela(linhaSelecionada);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro ao aumentar produto");
             }
@@ -150,11 +152,12 @@ namespace Orcamento_RRG.view
                     listaProdutosCarrinho.RemoveAt(linhaSelecionada);
                     dgvProdutos.Rows.RemoveAt(linhaSelecionada);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro ao diminuir produto");
             }
-            
+
             atualizarPreco();
         }
 
@@ -165,7 +168,8 @@ namespace Orcamento_RRG.view
                 int linhaSelecionada = dgvProdutos.CurrentRow.Index;
                 listaProdutosCarrinho.RemoveAt(linhaSelecionada);
                 dgvProdutos.Rows.RemoveAt(linhaSelecionada);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro ao excluir produto");
             }
@@ -175,7 +179,7 @@ namespace Orcamento_RRG.view
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if(atualizar == 0)
+            if (atualizar == 0)
             {
                 try
                 {
@@ -183,8 +187,10 @@ namespace Orcamento_RRG.view
                     string data = txtData.Text;
                     double valor = Double.Parse(lblValor.Text);
                     string numero = txtNumeroOrcamento.Text;
+                    string dataTeste = data;
+                    DateTime dataFormatada = DateTime.Parse(dataTeste);
 
-                    if(cliente == null ||  valor == 0 || numero == null || data == null || (dgvProdutos.Rows.Count > 0 && cliente == null || valor == 0 || numero == null || data == null))
+                    if (cliente == null || valor == 0 || numero == null || data == null || (dgvProdutos.Rows.Count > 0 && cliente == null || valor == 0 || numero == null || data == null))
                     {
                         MessageBox.Show("Por favor, insira todas as informações para salvar!");
                     }
@@ -204,25 +210,25 @@ namespace Orcamento_RRG.view
             }
             else
             {
-               // try
-               // {
-                    string cliente = txtCliente.Text;
-                    string data = txtData.Text;
-                    double valor = Double.Parse(lblValor.Text);
-                    string numero = txtNumeroOrcamento.Text;
-                    Orcamento orcamento = new Orcamento(cliente, data, numero, valor, id);
-                    orcamentoControl.atualizarOrcamento(orcamento);
-                    orcamentoControl.excluirItens(numero);
-                    salvarProdutosTabela();
-                    this.Close();
-               // }
-               // catch (Exception ex)
-               // {
-                  //  MessageBox.Show("Houve um erro ao salvar o orçamento. Tente novamente!");
-               // }
+                 try
+                 {
+                string cliente = txtCliente.Text;
+                string data = txtData.Text;
+                double valor = Double.Parse(lblValor.Text);
+                string numero = txtNumeroOrcamento.Text;
+                Orcamento orcamento = new Orcamento(cliente, data, numero, valor, id);
+                orcamentoControl.atualizarOrcamento(orcamento);
+                orcamentoControl.excluirItens(numero);
+                salvarProdutosTabela();
+                this.Close();
+                 }
+                 catch (Exception ex)
+                {
+                  MessageBox.Show("Houve um erro ao salvar o orçamento. Tente novamente!");
+                 }
             }
-            
-            
+
+
         }
 
         private void salvarProdutosTabela()
@@ -240,11 +246,12 @@ namespace Orcamento_RRG.view
                     orcamentoControl.adicionarItens(idProduto, numeroOrcamento, quantidade);
                     i++;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            
+
         }
 
         private void carregarItensAnteriores()
@@ -254,8 +261,8 @@ namespace Orcamento_RRG.view
                 DataTable dt = OrcamentoDAO.consultarItensAnteriores(txtNumeroOrcamento.Text);
                 int i = 0;
                 foreach (DataRow dr in dt.Rows)
-                {                    
-                    int numero = (int) dt.Rows[i].Field<Int64>("IDProduto");
+                {
+                    int numero = (int)dt.Rows[i].Field<Int64>("IDProduto");
                     int quantidade = (int)dt.Rows[i].Field<Int64>("Quantidade");
 
                     DataTable dtProduto = new DataTable();
@@ -275,6 +282,46 @@ namespace Orcamento_RRG.view
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "Arquivos de Texto|*.txt|Todos os Aquivos|*.*";
+            saveFileDialog.Title = "Exportar Arquivo";
+            saveFileDialog.FileName = txtNumeroOrcamento.Text + " - " + txtCliente.Text;
+
+            if(saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string caminhoSalvar = saveFileDialog.FileName;
+
+                using (StreamWriter writer = new StreamWriter(caminhoSalvar))
+                {
+                    writer.WriteLine("Cliente: " + txtCliente.Text);
+                    writer.WriteLine("Número do Orçamento: " + txtNumeroOrcamento.Text.ToString());
+                    writer.WriteLine("Data do Orçamento: " + txtData.Text.ToString());
+                    writer.WriteLine("\n\n");
+                    writer.WriteLine("Materiais");
+                    writer.WriteLine("\n\n");
+                    int i = 0;
+                    foreach (DataGridViewRow row in dgvProdutos.Rows)
+                    {
+                        string totalProduto = this.dgvProdutos.Rows[i].Cells[4].Value.ToString();
+                        string codigoProduto = listaProdutosCarrinho[i].Codigo;
+                        string quantidade = this.dgvProdutos.Rows[i].Cells[3].Value.ToString();
+                        string nomeProduto = listaProdutosCarrinho[i].Nome;
+
+                        writer.WriteLine($"{nomeProduto} - {codigoProduto} - Quantidade {quantidade} - Total do Item: R${Math.Round(Double.Parse(totalProduto), 2)}");
+                        i++;
+                    }
+                    writer.WriteLine("\n\n");
+                    writer.WriteLine("-----------------------");
+                    writer.WriteLine("\n\n");
+                    writer.WriteLine("Total do Orçamento R$" + Math.Round(Double.Parse(lblValor.Text), 2));
+                }
+                
             }
         }
     }
